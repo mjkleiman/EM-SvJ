@@ -7,6 +7,7 @@ directory = 'E:/OneDrive/EM-Search/MJK-SvJ/Raw'
 
 
 def separate_svj(folder):
+    # Set folder as directory within previously set working dir
     os.chdir(directory)
     os.chdir('./' + folder)
     files = os.listdir()
