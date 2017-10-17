@@ -1,11 +1,29 @@
 import numpy as np
 import os
-from scipy.misc import *
 import cv2
+from PIL import Image
 
-directory = 'E:/OneDrive/EM-Search/MJKSearch Coords/Raw'
+directory = 'E:/OneDrive/EM-Search/MJK-SvJ/Data/Test'
 os.chdir(directory)
 
-def gen_heatmaps():
-    filenum = sum([len(files) for r, d, files in os.walk(os.getcwd())])  # count number of files in directory
-    output = np.zeros([filenum, 1280, 1024])
+# def gen_heatmaps():
+
+out = np.zeros([1024, 1280])
+
+for f in os.listdir(os.getcwd()):
+    with open(f) as g:
+        gazedata = np.genfromtxt(f, dtype=np.int32, delimiter=',', skip_header=1)
+        xgazedata = gazedata[:,1]
+        ygazedata = gazedata[:,2]
+
+    for i in range(len(ygazedata)):
+        out[ygazedata[i], xgazedata[i]] += 255
+
+    # out[:, :] = cv2.blur(out[:, :], (5, 5))
+    img = Image.fromarray(out)
+    img.show()
+    # img.convert('RGB')
+    # img.save(f, PNG, optimize=True)
+
+
+
