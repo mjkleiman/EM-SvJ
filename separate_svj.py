@@ -13,7 +13,7 @@ def separate_svj(folder):
     files = os.listdir()
     for f in files:
         filename = f
-        imgnum = filename[6:9]
+        imgnum = filename[6:9] #Identifies image unique index from filename
         df = pd.read_csv(filename, sep = '\t')
 
         # -- Clean and avg
@@ -31,3 +31,4 @@ def separate_svj(folder):
             prows = df.loc[(df['ParticipantName'] == p)]  # Select rows with P## = p
             prows.to_csv(p + '-' + imgnum + '.csv', index=False) # write to csv
 
+separate_svj("J")
